@@ -6,10 +6,8 @@ Computer-based immigration office for Kanadia
 
 """
 
-__author__ = 'Susan Sim'
-__email__ = "ses@drsusansim.org"
-__copyright__ = "2015 Susan Sim"
-__license__ = "MIT License"
+__author__ = 'Pranjal Swami, Billal Sarwar, and Hirra Sheikh'
+
 
 import re
 import datetime

@@ -38,7 +38,7 @@ class UnknownAttributeException(Exception):
 
 
 def selection(t, f):
-     """
+    """
     Perform select operation on table t that satisfy condition f.
 
     Example:
@@ -64,7 +64,7 @@ def selection(t, f):
 
 
 
-def projection(t, r):
+def projection(table, attributes):
     """
     Perform projection operation on table t
     using the attributes subset r.
@@ -75,8 +75,33 @@ def projection(t, r):
     [["A", "C"], [1, 3], [4, 6]]
 
     """
+    if len(table) <= 0:
+        return []
+    # This stores index positions of the attributes in the header row
+    attribute_indexes = []
 
-    return []
+    # First row of table should contain table headers
+    headers = table[0]
+
+    # Calculate index positions on which attributes exist in header row
+    for attribute in attributes:
+        if attribute in headers:
+            attribute_indexes.append(headers.index(attribute))
+        else:
+            raise UnknownAttributeException("Attribute: {0} not recognized".format(attribute))
+
+    result_table = [attributes]
+    for row in table[1:]:
+        result_row = []
+
+        for attribute_index in attribute_indexes:
+            # Grab value from appropriate index in current row
+            result_row.append(row[attribute_index])
+
+        result_table.append(result_row)
+
+    return result_table
+
 
 
 def cross_product(t1, t2):

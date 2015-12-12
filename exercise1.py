@@ -38,7 +38,7 @@ class UnknownAttributeException(Exception):
 
 
 def selection(t, f):
-    """
+     """
     Perform select operation on table t that satisfy condition f.
 
     Example:
@@ -48,10 +48,20 @@ def selection(t, f):
     > def f(row): row[-1] > 3
     > select(R, f)
     [["A", "B", "C"], [4, 5, 6]]
+    :param f:
+    :param t:
 
     """
+    result_table = []
+    for row in t:
+        f_value = f(row)
+        if f_value is True:
+            result_table.append(row)
 
-    return []
+    return result_table
+
+
+
 
 
 def projection(t, r):

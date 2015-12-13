@@ -103,7 +103,6 @@ def projection(table, attributes):
     return result_table
 
 
-
 def cross_product(t1, t2):
     """
     Return the cross-product of tables t1 and t2.
@@ -116,5 +115,23 @@ def cross_product(t1, t2):
 
     """
 
-    return []
+    if len(t1) == 0 and len(t2) == 0:
+        return []
+    elif len(t1) == 0:
+        return t2
+    elif len(t2) == 0:
+        return t1
+
+    header1 = t1[0]
+    header2 = t2[0]
+
+    # Initialize header table with headers from both tables
+    result_table = [header1 + header2]
+
+    # Skip first row in both tables since headers have already been processed above
+    for r1 in t1[1:]:
+        for r2 in t2[1:]:
+            result_table.append(r1 + r2)
+
+    return result_table
 

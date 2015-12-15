@@ -137,6 +137,7 @@ def decide(input_file, countries_file):
                         visa = get_visa(citizen_record)
                         if not is_visa_valid(visa):
                             immigration_statuses.append(IMMIGRATION_REJECT)
+<<<<<<< Updated upstream
                             # If rejected, no need to process further. Continue to next applicant
                             continue
 
@@ -165,6 +166,7 @@ def decide(input_file, countries_file):
 
     return immigration_statuses
 
+<<<<<<< Updated upstream
 def verify_record_complete(citizen_record):
     """
     Checks whether all fields in an entry record are filled in
@@ -183,13 +185,23 @@ def verify_record_complete(citizen_record):
 
     return is_valid_record
 
+=======
+                            
+=======
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 def valid_passport_format(passport_number):
     """
     Checks whether a pasport number is five sets of five alpha-number characters separated by dashes
     :param passport_number: alpha-numeric string
     :return: Boolean; True if the format is valid, False otherwise
     """
-    return False
+    match = passport_matcher.match(passport_number)
+    if match is not None and len(match.group()) > 0:
+        return True
+    else:
+        return False
 
 
 def valid_visa_format(visa_code):

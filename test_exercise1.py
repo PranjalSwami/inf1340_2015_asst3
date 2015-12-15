@@ -79,6 +79,16 @@ def test_selection():
     """
     Test select operation.
     """
+    # Test last_element_gt_three method selection
+    result = [["A", "B", "C"], [4, 5, 6]]
+    assert is_equal(result, selection(R, last_elem_gt_three))
+
+    # Test empty table returned when no rows in result
+    input_table = [[1, 1, 1], [2, 2, 2]]
+    assert is_equal([], selection(input_table, last_elem_gt_three))
+
+    # Test empty table returned when input table is null
+    assert is_equal([], selection([], last_elem_gt_three))
 
     result = [["Surname", "FirstName", "Age", "Salary"],
               ["Verdi", "Nico", 36, 4500],

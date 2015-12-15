@@ -8,7 +8,8 @@ __author__ = 'Pranjal, Billal, Hirra'
 # imports one per line
 import pytest
 import os
-from exercise2 import decide
+from exercise2 import decide, valid_passport_format, valid_visa_format, valid_date_format
+
 
 DIR = "test_jsons/"
 os.chdir(DIR)

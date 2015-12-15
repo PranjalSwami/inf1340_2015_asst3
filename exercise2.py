@@ -280,3 +280,25 @@ def get_via(citizen_record):
         return citizen_record["via"]
     except:
         return None
+
+
+
+
+def is_medical_advisory(country, countries):
+    """
+    Checks if country specified has a medical advisory
+    :param country: Name of country being checked
+    :param countries: Data about list of countries
+    :return: Returns True if medical advisory issued for country, False otherwise
+    """
+    result = False
+
+    try:
+        country_record = countries[country]
+    except:
+        country_record = None
+
+    if country_record is not None and len(country_record["medical_advisory"]) > 0:
+        result = True
+
+    return result

@@ -165,7 +165,24 @@ def decide(input_file, countries_file):
 
     return immigration_statuses
 
-                            
+def verify_record_complete(citizen_record):
+    """
+    Checks whether all fields in an entry record are filled in
+    :param citizen_record: The record of a citizen who is being checked
+    :return: Boolean True if record is filled in, False if otherwise
+    """
+    is_valid_record = True
+    for required_field in REQUIRED_FIELDS:
+        try:
+            if len(citizen_record[required_field]) <= 0:
+                is_valid_record = False
+                break
+        except:
+            is_valid_record = False
+            break
+
+    return is_valid_record
+
 def valid_passport_format(passport_number):
     """
     Checks whether a pasport number is five sets of five alpha-number characters separated by dashes

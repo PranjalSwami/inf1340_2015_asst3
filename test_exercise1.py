@@ -112,9 +112,8 @@ def test_projection():
 
 
 def test_cross_product():
-    """
-    Test cross product operation.
-    """
+    result = [["A", "C"], [1, 3], [4, 6]]
+    assert is_equal(result, projection(R, ["A", "C"]))
 
     result = [["Employee", "Department", "Department", "Head"],
               ["Smith", "sales", "production", "Mori"],

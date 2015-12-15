@@ -95,7 +95,20 @@ def decide(input_file, countries_file):
             is_records_complete = verify_record_complete(citizen_record)
             if not is_records_complete:
                 immigration_statuses.append(IMMIGRATION_REJECT)
-    
+
+                # If rejected, no need to process further. Continue to next applicant
+                continue
+
+            is_passport_number_valid = valid_passport_format(citizen_record["passport"])
+            if not is_passport_number_valid:
+                immigration_statuses.append(IMMIGRATION_REJECT)
+
+                # If rejected, no need to process further. Continue to next applicant
+                continue
+
+            is_birth_date_valid = valid_date_format(citizen_record["birth_date"])
+            if not is_birth_date_valid:
+                immigration_statuses.append(IMMIGRATION_REJECT)
 
 
 def valid_passport_format(passport_number):

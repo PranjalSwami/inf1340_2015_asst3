@@ -84,3 +84,24 @@ def test_valid_passport_format():
     assert valid_passport_format("") == False
     assert valid_passport_format("jmz0s-89ia9-otcly-moilj-p7cty") == True
 
+def test_valid_visa_format():
+    """
+    Tests visa format validation is being done properly
+    """
+
+    assert valid_visa_format("JMZ0S-89IA9-OTCLY-MQILJ-P7CTY") == True
+    assert valid_visa_format("JMZ-89I-OTC-MQI-P7C") == False
+    assert valid_visa_format("") == False
+    assert valid_visa_format("jmz0s-89ia9-otcly-moilj-p7cty") == True
+
+
+def test_valid_date_format():
+    """
+    Tests date format validation is being done properly
+    """
+
+    assert valid_date_format("1958-08-22") == True
+    assert valid_date_format("58-08-22") == False
+    assert valid_date_format("1958-08-aa") == False
+
+

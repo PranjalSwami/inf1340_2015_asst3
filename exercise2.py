@@ -110,7 +110,34 @@ def decide(input_file, countries_file):
             if not is_birth_date_valid:
                 immigration_statuses.append(IMMIGRATION_REJECT)
 
+                 # If rejected, no need to process further. Continue to next applicant
+                continue
 
+            citizen_home = citizen_record["home"]
+            citizen_home_country = citizen_home["country"]
+
+            # If traveller is from "KAN", directly accept
+            if citizen_home_country == "KAN":
+                immigration_status = IMMIGRATION_ACCEPT
+
+            # Not a citizen, check visiting credentials
+            else:
+                is_valid_location = valid_location(citizen_home_country, countries_file_json)
+                if not is_valid_location:
+                    immigration_statuses.append(IMMIGRATION_REJECT)
+
+                    # If rejected, no need to process further. Continue to next applicant
+                    continue
+
+                # Check if visitor visa required. If so, check if visa is valid
+                citizen_entry_reason = citizen_record["entry_reason"]
+                if citizen_entry_reason == "visit":
+                    visitor_country = countries_file_json[citizen_home_country]
+                    if visitor_country["visitor_visa_required"] == '1':
+                        visa = get_visa(citizen_record)
+                        if not is_visa_valid(visa):
+                            immigration_statuses.append(IMMIGRATION_REJECT)
+                            
 def valid_passport_format(passport_number):
     """
     Checks whether a pasport number is five sets of five alpha-number characters separated by dashes

@@ -302,3 +302,20 @@ def is_medical_advisory(country, countries):
         result = True
 
     return result
+
+def is_quarantine_reqd(citizen_record, countries_file_json):
+    """
+    Checks a citizen record and returns if quarantine is required
+    :param countries_file_json: data about a list of countries
+    :param citizen_record: record of citizen
+    :return: Checks a citizen record and returns if quarantine is required
+    """
+
+    citizen_coming_from = citizen_record["from"]
+    citizen_coming_via = get_via(citizen_record)
+
+    is_quarantine = is_medical_advisory(citizen_coming_from["country"], countries_file_json)
+    if not is_quarantine and citizen_coming_via is not None:
+        is_quarantine = is_medical_advisory(citizen_coming_via["country"], countries_file_json)
+
+    return is_quarantine

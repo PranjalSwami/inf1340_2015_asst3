@@ -60,6 +60,17 @@ def filter_employees(row):
     return row[-2] >= 30 and row[-1] > 3500
 
 
+
+
+def last_elem_gt_three(row):
+    """
+    Returns true iff last element in row is greater than 3
+    :param row:
+    :return:
+    """
+    return row[-1] > 3
+
+
 ###################
 # TEST FUNCTIONS ##
 ###################

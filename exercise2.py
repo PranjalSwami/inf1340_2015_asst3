@@ -254,3 +254,18 @@ def get_visa(citizen_record):
         return citizen_record["visa"]
     except:
         return None
+
+def is_visa_valid(visa):
+    """
+    Checks if visa is valid (within last two years)
+    :param visa: Visa object being checked
+    :return: Returns True if visa is made within last two years, False otherwise
+    """
+    if visa is None:
+        return False
+    else:
+        visa_date = visa["date"]
+        if visa_date is None or valid_date_format(visa_date) is False:
+            return False
+
+        return not is_more_than_x_years_ago(2, visa_date)

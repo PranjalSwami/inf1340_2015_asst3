@@ -240,3 +240,17 @@ def valid_location(location, countries):
             return False
     except:
         return False
+
+
+
+
+def get_visa(citizen_record):
+    """
+    Returns visa object from citizen record. If no visa object found, returns None
+    :param citizen_record: record of citizen
+    :return: Returns visa object from citizen record. If no visa object found, returns None
+    """
+    try:
+        return citizen_record["visa"]
+    except:
+        return None

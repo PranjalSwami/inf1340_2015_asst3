@@ -225,3 +225,16 @@ def valid_date_format(date_string):
         return True
     else:
         return False
+
+def valid_date_format(date_string):
+    """
+    Checks whether a date has the format YYYY-mm-dd in numbers
+    :param date_string: date to be checked
+    :return: Boolean True if the format is valid, False otherwise
+    """
+
+    match = date_matcher.match(date_string)
+    if match is not None and len(match.group()) > 0:
+        return True
+    else:
+        return False

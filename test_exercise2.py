@@ -55,4 +55,32 @@ def test_transiting():
     assert decide("test_transit_visitor.json", "countries.json") ==\
            ["Accept", "Reject", "Quarantine", "Accept", "Reject"]
 
+def test_invalid_inputs():
+    """
+    All entries in the json file should trigger various invalid inputs
+    :return:
+    """
+
+    # Visitor 1 has incomplete records (passport field missing)
+    # Visitor 2 has invalid passport number
+    # Visitor 3 has invalid birth date
+    # Visitor 4 has invalid home location
+    # Visitor 5 has invalid from location
+    # Visitor 6 has invalid entry reason
+    # Visitor 7 has invalid visa date
+    # Visitor 8 has invalid visa code
+    # Visitor 9 has invalid via location
+    assert decide("test_invalid_visitor.json", "countries.json") ==\
+           ["Reject", "Reject", "Reject", "Reject", "Reject", "Reject", "Reject", "Reject", "Reject"]
+
+
+def test_valid_passport_format():
+    """
+    Tests passport format validation is being done properly
+    """
+
+    assert valid_passport_format("JMZ0S-89IA9-OTCLY-MQILJ-P7CTY") == True
+    assert valid_passport_format("JMZ-89I-OTC-MQI-P7C") == False
+    assert valid_passport_format("") == False
+    assert valid_passport_format("jmz0s-89ia9-otcly-moilj-p7cty") == True
 

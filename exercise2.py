@@ -220,5 +220,8 @@ def valid_date_format(date_string):
     :param date_string: date to be checked
     :return: Boolean True if the format is valid, False otherwise
     """
-
-    return False
+    match = date_matcher.match(date_string)
+    if match is not None and len(match.group()) > 0:
+        return True
+    else:
+        return False

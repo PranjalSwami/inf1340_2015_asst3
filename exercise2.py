@@ -78,8 +78,24 @@ def decide(input_file, countries_file):
     :return: List of strings. Possible values of strings are:
         "Accept", "Reject", and "Quarantine"
     """
+    # Prepend root folder where json files can be found to all file paths
+    # json_file_root = "test_jsons/"
+    # input_file = json_file_root + input_file
+    # countries_file = json_file_root + input_file
 
-    return ["Reject"]
+    immigration_statuses = []
+    with open(input_file, "r") as input_file_obj, open(countries_file) as countries_file_obj:
+        input_file_json = json.load(input_file_obj)
+        countries_file_json = json.load(countries_file_obj)
+
+        for citizen_record in input_file_json:
+            # Default immigration status is 'Accept'. This should change if any verification fails
+            immigration_status = IMMIGRATION_ACCEPT
+
+            is_records_complete = verify_record_complete(citizen_record)
+            if not is_records_complete:
+                immigration_statuses.append(IMMIGRATION_REJECT)
+    
 
 
 def valid_passport_format(passport_number):

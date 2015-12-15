@@ -42,3 +42,17 @@ def test_visiting():
     assert decide("test_visitor.json", "countries.json") ==\
            ["Accept", "Quarantine", "Accept", "Quarantine", "Accept", "Reject", "Reject"]
 
+def test_transiting():
+    """
+    Travellers are transiting through KAN
+    """
+
+    # Visitor 1 is from III (transit visa required) and has valid visa - "Accept"
+    # Visitor 1 is from III (transit visa required) and has invalid visa - "Reject"
+    # Visitor 3 is from III (transit visa required) but coming from LUG with medical advisory - "Quarantine"
+    # Visitor 4 is from KRA (no transit visa required) with no visa - "Accept"
+    # Visitor 5 is from GOR (transit visa required) with no visa - "Reject"
+    assert decide("test_transit_visitor.json", "countries.json") ==\
+           ["Accept", "Reject", "Quarantine", "Accept", "Reject"]
+
+

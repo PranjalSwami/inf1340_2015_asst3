@@ -137,6 +137,34 @@ def decide(input_file, countries_file):
                         visa = get_visa(citizen_record)
                         if not is_visa_valid(visa):
                             immigration_statuses.append(IMMIGRATION_REJECT)
+                            # If rejected, no need to process further. Continue to next applicant
+                            continue
+
+                elif citizen_entry_reason == "transit":
+                    visitor_country = countries_file_json[citizen_home_country]
+                    if visitor_country["transit_visa_required"] == '1':
+                        visa = get_visa(citizen_record)
+                        if not is_visa_valid(visa):
+                            immigration_statuses.append(IMMIGRATION_REJECT)
+
+                            # If rejected, no need to process further. Continue to next applicant
+                            continue
+                else:
+                    # Entry reason is invalid. Reject application
+                    immigration_statuses.append(IMMIGRATION_REJECT)
+
+                    # If rejected, no need to process further. Continue to next applicant
+                    continue
+
+            # Check for quarantine, regardless if citizen or visitor
+            is_quarantine = is_quarantine_reqd(citizen_record, countries_file_json)
+            if is_quarantine:
+                immigration_status = IMMIGRATION_QUARANTINE
+
+            immigration_statuses.append(immigration_status)
+
+    return immigration_statuses
+
                             
 def valid_passport_format(passport_number):
     """

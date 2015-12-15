@@ -226,15 +226,17 @@ def valid_date_format(date_string):
     else:
         return False
 
-def valid_date_format(date_string):
+def valid_location(location, countries):
     """
-    Checks whether a date has the format YYYY-mm-dd in numbers
-    :param date_string: date to be checked
-    :return: Boolean True if the format is valid, False otherwise
+    Checks if location is present in list of countries provided
+    :param location: location being verified
+    :param countries: list of valid countries
+    :return: Boolean True if location is present in countries, False otherwise
     """
-
-    match = date_matcher.match(date_string)
-    if match is not None and len(match.group()) > 0:
-        return True
-    else:
+    try:
+        if countries[location] is not None:
+            return True
+        else:
+            return False
+    except:
         return False

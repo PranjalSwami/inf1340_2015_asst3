@@ -269,3 +269,14 @@ def is_visa_valid(visa):
             return False
 
         return not is_more_than_x_years_ago(2, visa_date)
+
+def get_via(citizen_record):
+    """
+    Returns via object from citizen record. Returns none if via object does not exist in record
+    :param citizen_record: record of citizen
+    :return: Returns via object from citizen record. Returns none if via object does not exist in record
+    """
+    try:
+        return citizen_record["via"]
+    except:
+        return None

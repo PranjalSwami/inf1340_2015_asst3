@@ -33,18 +33,18 @@ containing the following keys:
 COUNTRIES = None
 
 # Define valid immigration statuses
-35	IMMIGRATION_ACCEPT = "Accept"
-36	IMMIGRATION_REJECT = "Reject"
-37	IMMIGRATION_QUARANTINE = "Quarantine"
-38
-39	PASSPORT_PATTERN = "[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}"
-40	passport_matcher = re.compile(PASSPORT_PATTERN, re.IGNORECASE)
-41
-42	VISA_PATTERN = "[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}"
-43	visa_matcher = re.compile(VISA_PATTERN, re.IGNORECASE)
-44
-45	DATE_PATTERN = "[0-9]{4}-[0-9]{2}-[0-9]{2}"
-46	date_matcher = re.compile(DATE_PATTERN)
+IMMIGRATION_ACCEPT = "Accept"
+IMMIGRATION_REJECT = "Reject"
+IMMIGRATION_QUARANTINE = "Quarantine"
+
+PASSPORT_PATTERN = "[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}"
+passport_matcher = re.compile(PASSPORT_PATTERN, re.IGNORECASE)
+
+VISA_PATTERN = "[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}"
+visa_matcher = re.compile(VISA_PATTERN, re.IGNORECASE)
+
+DATE_PATTERN = "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+date_matcher = re.compile(DATE_PATTERN)
 
 
 #####################

@@ -6,8 +6,8 @@ __author__ = 'Pranjal, Billal, Hirra'
 
 
 # imports one per line
-import pytest
 import os
+
 from exercise2 import decide, valid_passport_format, valid_visa_format, valid_date_format
 
 
@@ -23,9 +23,8 @@ def test_returning():
     # Visitor 1 is from KAN (no visa required) and has no visa - "Accept"
     # Visitor 2 is from KAN (no visa required) and has no visa - "Accept"
     # Visitor 3 is from KAN (no visa required) but coming from LUG with medical advisory - "Quarantine"
+    assert decide("test_returning_citizen.json", "countries.json") == ["Accept", "Accept", "Quarantine"]
 
-    assert decide("test_returning_citizen.json", "countries.json") ==\
-        ["Accept", "Accept", "Quarantine"]
 
 def test_visiting():
     """
@@ -40,7 +39,8 @@ def test_visiting():
     # Visitor 6 is from FRY (visa required) with no visa - "Reject"
     # Visitor 7 is from BRD (visa required) with visa
     assert decide("test_visitor.json", "countries.json") ==\
-           ["Accept", "Quarantine", "Accept", "Quarantine", "Accept", "Reject", "Reject"]
+        ["Accept", "Quarantine", "Accept", "Quarantine", "Accept", "Reject", "Reject"]
+
 
 def test_transiting():
     """
@@ -52,13 +52,13 @@ def test_transiting():
     # Visitor 3 is from III (transit visa required) but coming from LUG with medical advisory - "Quarantine"
     # Visitor 4 is from KRA (no transit visa required) with no visa - "Accept"
     # Visitor 5 is from GOR (transit visa required) with no visa - "Reject"
-    assert decide("test_transit_visitor.json", "countries.json") ==\
-           ["Accept", "Reject", "Quarantine", "Accept", "Reject"]
+    assert decide("test_transit_visitor.json", "countries.json") == \
+        ["Accept", "Reject", "Quarantine", "Accept", "Reject"]
+
 
 def test_invalid_inputs():
     """
     All entries in the json file should trigger various invalid inputs
-    :return:
     """
 
     # Visitor 1 has incomplete records (passport field missing)
@@ -70,8 +70,8 @@ def test_invalid_inputs():
     # Visitor 7 has invalid visa date
     # Visitor 8 has invalid visa code
     # Visitor 9 has invalid via location
-    assert decide("test_invalid_visitor.json", "countries.json") ==\
-           ["Reject", "Reject", "Reject", "Reject", "Reject", "Reject", "Reject", "Reject", "Reject"]
+    assert decide("test_invalid_visitor.json", "countries.json") == \
+        ["Reject", "Reject", "Reject", "Reject", "Reject", "Reject", "Reject", "Reject", "Reject"]
 
 
 def test_valid_passport_format():
@@ -79,20 +79,21 @@ def test_valid_passport_format():
     Tests passport format validation is being done properly
     """
 
-    assert valid_passport_format("JMZ0S-89IA9-OTCLY-MQILJ-P7CTY") == True
-    assert valid_passport_format("JMZ-89I-OTC-MQI-P7C") == False
-    assert valid_passport_format("") == False
-    assert valid_passport_format("jmz0s-89ia9-otcly-moilj-p7cty") == True
+    assert valid_passport_format("JMZ0S-89IA9-OTCLY-MQILJ-P7CTY") is True
+    assert valid_passport_format("JMZ-89I-OTC-MQI-P7C") is False
+    assert valid_passport_format("") is False
+    assert valid_passport_format("jmz0s-89ia9-otcly-moilj-p7cty") is True
+
 
 def test_valid_visa_format():
     """
     Tests visa format validation is being done properly
     """
 
-    assert valid_visa_format("JMZ0S-89IA9-OTCLY-MQILJ-P7CTY") == True
-    assert valid_visa_format("JMZ-89I-OTC-MQI-P7C") == False
-    assert valid_visa_format("") == False
-    assert valid_visa_format("jmz0s-89ia9-otcly-moilj-p7cty") == True
+    assert valid_visa_format("JMZ0S-89IA9-OTCLY-MQILJ-P7CTY") is True
+    assert valid_visa_format("JMZ-89I-OTC-MQI-P7C") is False
+    assert valid_visa_format("") is False
+    assert valid_visa_format("jmz0s-89ia9-otcly-moilj-p7cty") is True
 
 
 def test_valid_date_format():
@@ -100,8 +101,6 @@ def test_valid_date_format():
     Tests date format validation is being done properly
     """
 
-    assert valid_date_format("1958-08-22") == True
-    assert valid_date_format("58-08-22") == False
-    assert valid_date_format("1958-08-aa") == False
-
-
+    assert valid_date_format("1958-08-22") is True
+    assert valid_date_format("58-08-22") is False
+    assert valid_date_format("1958-08-aa") is False

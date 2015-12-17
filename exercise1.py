@@ -8,11 +8,9 @@ implemented as lists of lists. """
 __author__ = 'Pranjal Swami, Billal Sarwar, and Hirra Sheikh'
 
 
-
 #####################
 # HELPER FUNCTIONS ##
 #####################
-
 def remove_duplicates(l):
     """
     Removes duplicates from l, where l is a List of Lists.
@@ -37,6 +35,13 @@ class UnknownAttributeException(Exception):
     pass
 
 
+class UnknownFunctionException(Exception):
+    """
+    Raised when attempting to pass a non callable object as a function
+    """
+    pass
+
+
 def selection(t, f):
     """
     Perform select operation on table t that satisfy condition f.
@@ -48,20 +53,22 @@ def selection(t, f):
     > def f(row): row[-1] > 3
     > select(R, f)
     [["A", "B", "C"], [4, 5, 6]]
-    :param f:
-    :param t:
-
+    :param f: The selection function
+    :param t: The table being processed
+    :return Table that is original table filtered by function
     """
+
     result_table = []
     for row in t:
-        f_value = f(row)
+        try:
+            f_value = f(row)
+        except TypeError:
+            raise UnknownFunctionException("Function not recognized")
+
         if f_value is True:
             result_table.append(row)
 
     return result_table
-
-
-
 
 
 def projection(table, attributes):
@@ -74,7 +81,11 @@ def projection(table, attributes):
     > projection(R, ["A", "C"])
     [["A", "C"], [1, 3], [4, 6]]
 
+    :param table: The table being processed
+    :param attributes: The columns to be returned
+    :return Table that has projected columns specified in attributes
     """
+
     if len(table) <= 0:
         return []
     # This stores index positions of the attributes in the header row
@@ -90,15 +101,19 @@ def projection(table, attributes):
         else:
             raise UnknownAttributeException("Attribute: {0} not recognized".format(attribute))
 
-    result_table = [attributes]
-    for row in table[1:]:
-        result_row = []
+    result_table = []
+    if len(attributes) > 0:
+        # Headers in result table should be the attributes passed in
+        result_table = [attributes]
 
-        for attribute_index in attribute_indexes:
-            # Grab value from appropriate index in current row
-            result_row.append(row[attribute_index])
+        for row in table[1:]:
+            result_row = []
 
-        result_table.append(result_row)
+            for attribute_index in attribute_indexes:
+                # Grab value from appropriate index in current row
+                result_row.append(row[attribute_index])
+
+            result_table.append(result_row)
 
     return result_table
 
@@ -112,11 +127,13 @@ def cross_product(t1, t2):
     > R2 = [["C", "D"], [5,6]]
     [["A", "B", "C", "D"], [1, 2, 5, 6], [3, 4, 5, 6]]
 
-
+    :param t1: Table 1 of cross product
+    :param t2: Table 2 of cross product
+    :return Table that has cross product of t1 and t2
     """
 
     if len(t1) == 0 and len(t2) == 0:
-        return []
+        return None
     elif len(t1) == 0:
         return t2
     elif len(t2) == 0:
@@ -133,5 +150,7 @@ def cross_product(t1, t2):
         for r2 in t2[1:]:
             result_table.append(r1 + r2)
 
-    return result_table
-
+    if len(result_table) == 0:
+        return None
+    else:
+        return result_table

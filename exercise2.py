@@ -8,8 +8,6 @@ Computer-based immigration office for Kanadia
 
 __author__ = 'Pranjal Swami, Billal Sarwar, and Hirra Sheikh'
 
-
-import re
 import datetime
 import json
 import re
@@ -110,7 +108,7 @@ def decide(input_file, countries_file):
             if not is_birth_date_valid:
                 immigration_statuses.append(IMMIGRATION_REJECT)
 
-                 # If rejected, no need to process further. Continue to next applicant
+                # If rejected, no need to process further. Continue to next applicant
                 continue
 
             citizen_home = citizen_record["home"]
@@ -165,6 +163,7 @@ def decide(input_file, countries_file):
 
     return immigration_statuses
 
+
 def verify_record_complete(citizen_record):
     """
     Checks whether all fields in an entry record are filled in
@@ -182,8 +181,6 @@ def verify_record_complete(citizen_record):
             break
 
     return is_valid_record
-
-
 
 
 def valid_passport_format(passport_number):
@@ -226,6 +223,7 @@ def valid_date_format(date_string):
     else:
         return False
 
+
 def valid_location(location, countries):
     """
     Checks if location is present in list of countries provided
@@ -242,8 +240,6 @@ def valid_location(location, countries):
         return False
 
 
-
-
 def get_visa(citizen_record):
     """
     Returns visa object from citizen record. If no visa object found, returns None
@@ -254,6 +250,7 @@ def get_visa(citizen_record):
         return citizen_record["visa"]
     except:
         return None
+
 
 def is_visa_valid(visa):
     """
@@ -270,6 +267,7 @@ def is_visa_valid(visa):
 
         return not is_more_than_x_years_ago(2, visa_date)
 
+
 def get_via(citizen_record):
     """
     Returns via object from citizen record. Returns none if via object does not exist in record
@@ -280,8 +278,6 @@ def get_via(citizen_record):
         return citizen_record["via"]
     except:
         return None
-
-
 
 
 def is_medical_advisory(country, countries):
@@ -302,6 +298,7 @@ def is_medical_advisory(country, countries):
         result = True
 
     return result
+
 
 def is_quarantine_reqd(citizen_record, countries_file_json):
     """
